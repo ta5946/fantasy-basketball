@@ -1,0 +1,30 @@
+name: Lint notebook
+
+on:
+  push:
+    branches: [main]
+    paths: ['team_analysis.ipynb', '.github/workflows/lint.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pylint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Run pylint
+        run: |
+          pip install espn_api python-dotenv matplotlib nbqa pylint
+          nbqa pylint team_analysis.ipynb --exit-zero > pylint.txt
+          cat pylint.txt
+          grep 'rated at' pylint.txt | sed 's/.*rated at/## Pylint score:/' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat pylint.txt >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
