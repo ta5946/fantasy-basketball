@@ -45,6 +45,10 @@ The notebook saves one bar chart per team to `out/`. Turnovers are shown as -TO,
 
 3. Open `team_analysis.ipynb` and run all cells. The charts and the number of games played (`games_played.json`) are written to `out/`.
 
+## Website
+
+We publish the charts on [GitHub Pages](https://ta5946.github.io/fantasy-basketball/). A GitHub Actions workflow updates them every day at 10:00 UTC, so the page is up to date by noon in Slovenia. It reads the `.env` values from the repository secrets (`ESPN_S2`, `ESPN_SWID`) and variables (`LEAGUE_NAME`, `LEAGUE_ID`, `YEAR`), set under Settings > Secrets and variables > Actions.
+
 ## Limitations
 
 - **Projections early in the season.** Before a player's first game, the notebook uses ESPN projections, so results in the first weeks reflect ESPN's expectations rather than real performance.

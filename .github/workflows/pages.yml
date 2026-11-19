@@ -1,9 +1,11 @@
-name: Deploy charts to GitHub Pages
+name: Update charts and deploy to GitHub Pages
 
 on:
+  schedule:
+    - cron: '0 10 * * *'
   push:
     branches: [main]
-    paths: ['out/**', 'site/**', '.github/workflows/pages.yml']
+    paths: ['team_analysis.ipynb', 'site/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
@@ -23,14 +25,28 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
         with:
-          fetch-depth: 0
+          python-version: '3.13'
+
+      - name: Run notebook
+        env:
+          LEAGUE_NAME: ${{ vars.LEAGUE_NAME }}
+          LEAGUE_ID: ${{ vars.LEAGUE_ID }}
+          YEAR: ${{ vars.YEAR }}
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+        run: |
+          rm -rf out
+          pip install espn_api python-dotenv matplotlib jupyter
+          jupyter nbconvert --to notebook --execute --inplace team_analysis.ipynb
 
       - name: Build site
         run: |
           mkdir -p _site
           cp -r out _site/out
-          export UPDATED="$(git log -1 --format=%cd --date=format:'%-d %B %Y' -- out)"
+          export UPDATED="$(TZ=Europe/Ljubljana date +'%-d %B %Y')"
           python3 - <<'EOF'
           import html, json, os
           from urllib.parse import quote
