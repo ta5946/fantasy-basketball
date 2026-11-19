@@ -32,7 +32,7 @@ jobs:
           cp -r out _site/out
           export UPDATED="$(git log -1 --format=%cd --date=format:'%-d %B %Y' -- out)"
           python3 - <<'EOF'
-          import html, os
+          import html, json, os
           from urllib.parse import quote
 
           charts = []
@@ -42,8 +42,11 @@ jobs:
                   src = 'out/' + quote(file_name)
                   charts.append(f'    <a href="{src}"><img src="{src}" alt="{team_name}" loading="lazy"></a>')
 
+          games_played = json.load(open('out/games_played.json', encoding='utf-8'))
+
           page = open('site/index.html', encoding='utf-8').read()
           page = page.replace('{{updated}}', os.environ['UPDATED'])
+          page = page.replace('{{games_played}}', f"{games_played['min']}-{games_played['max']}")
           page = page.replace('{{charts}}', '\n'.join(charts))
           open('_site/index.html', 'w', encoding='utf-8').write(page)
           EOF

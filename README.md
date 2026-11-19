@@ -43,7 +43,7 @@ The notebook saves one bar chart per team to `out/`. Turnovers are shown as -TO,
    - **LEAGUE_ID** is the number in the URL of your league page.
    - **ESPN_S2 and ESPN_SWID** are needed for private leagues. Open the fantasy home page in your browser and copy the `espn_s2` and `SWID` cookies from the developer tools (Application > Cookies).
 
-3. Open `team_analysis.ipynb` and run all cells. The charts are written to `out/`.
+3. Open `team_analysis.ipynb` and run all cells. The charts and the number of games played (`games_played.json`) are written to `out/`.
 
 ## Limitations
 
