@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fantasy basketball team analysis</title>
+  <style>
+    body {
+      margin: 0 auto;
+      max-width: 1200px;
+      padding: 24px 16px;
+      background: #fff;
+      color: #222;
+      font-family: system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    h1 { margin-bottom: 4px; }
+    .updated { margin-top: 0; color: #666; }
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .charts img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fantasy basketball team analysis 🏀</h1>
+  <p class="updated">Updated {{updated}}</p>
+  <p>
+    Each chart compares a team with the league average in the 9 scoring categories.
+    Green bars are categories above the average, red bars categories below it,
+    with a stronger color for a larger difference.
+    Turnovers are shown as -TO, so a higher bar is always better.
+    See the <a href="https://github.com/ta5946/fantasy-basketball">repository</a> for the method.
+  </p>
+  <div class="charts">
+{{charts}}
+  </div>
+</body>
+</html>
