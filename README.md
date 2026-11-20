@@ -47,7 +47,7 @@ The notebook saves one bar chart per team to `out/`. Turnovers are shown as -TO,
 
 ## Website
 
-We publish the charts on [GitHub Pages](https://ta5946.github.io/fantasy-basketball/). A GitHub Actions workflow updates them every day at 10:00 UTC, so the page is up to date by noon in Slovenia. It reads the `.env` values from the repository secrets (`ESPN_S2`, `ESPN_SWID`) and variables (`LEAGUE_NAME`, `LEAGUE_ID`, `YEAR`), set under Settings > Secrets and variables > Actions.
+We publish the charts on [GitHub Pages](https://ta5946.github.io/fantasy-basketball/). A GitHub Actions workflow updates them every day at 11:11 UTC, which is 12:11 in Slovenia. It reads the `.env` values from the repository secrets (`ESPN_S2`, `ESPN_SWID`) and variables (`LEAGUE_NAME`, `LEAGUE_ID`, `YEAR`), set under Settings > Secrets and variables > Actions.
 
 ## Limitations
 

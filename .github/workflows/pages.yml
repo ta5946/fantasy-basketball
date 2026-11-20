@@ -2,7 +2,7 @@ name: Update charts and deploy to GitHub Pages
 
 on:
   schedule:
-    - cron: '0 10 * * *'
+    - cron: '11 11 * * *'
   push:
     branches: [main]
     paths: ['team_analysis.ipynb', 'site/**', '.github/workflows/pages.yml']
