@@ -43,6 +43,8 @@ jobs:
           jupyter nbconvert --to notebook --execute --inplace team_analysis.ipynb
 
       - name: Build site
+        env:
+          LEAGUE_NAME: ${{ vars.LEAGUE_NAME }}
         run: |
           mkdir -p _site
           cp -r out _site/out
@@ -61,6 +63,7 @@ jobs:
           games_played = json.load(open('out/games_played.json', encoding='utf-8'))
 
           page = open('site/index.html', encoding='utf-8').read()
+          page = page.replace('{{league_name}}', html.escape(os.environ['LEAGUE_NAME']))
           page = page.replace('{{updated}}', os.environ['UPDATED'])
           page = page.replace('{{games_played}}', f"{games_played['min']}-{games_played['max']}")
           page = page.replace('{{charts}}', '\n'.join(charts))
